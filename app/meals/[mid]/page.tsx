@@ -1,13 +1,23 @@
-import { use } from "react";
+import { Suspense } from "react";
+
 type MealDetailsProps = {
   params: Promise<{ mid: string }>;
 };
-export default function MealDetails({ params }: MealDetailsProps) {
-  const { mid } = use(params);
+
+export default function Page({ params }: MealDetailsProps) {
+  return (
+    <Suspense fallback={<p>Loading meal details...</p>}>
+      <MealDetails params={params} />
+    </Suspense>
+  );
+}
+
+async function MealDetails({ params }: MealDetailsProps) {
+  const { mid } = await params;
+
   return (
     <div>
-      <p>Details</p>
-      <h1>{mid}</h1>
+      <p>Meal ID: {mid}</p>
     </div>
   );
 }

@@ -9,10 +9,10 @@ export default function Meals() {
       <div>
         Meals
         <p>
-          <Link href={"meals/share"}>Share</Link>
+          <Link href={"/meals/share"}>Share</Link>
         </p>
         <p>
-          <Link href={"meals/87292932"}>Details</Link>
+          <Link href={"/meals/87292932"}>Details</Link>
         </p>
       </div>
     </>
