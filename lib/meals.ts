@@ -12,6 +12,7 @@ export interface Meal {
 
 export async function getMeals(): Promise<Meal[]> {
   await new Promise((resolve) => setTimeout(resolve, 1000));
+  // throw new Error("Test error");
   return db.prepare("SELECT * FROM meals").all() as Meal[];
 }
 
