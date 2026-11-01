@@ -4,8 +4,8 @@ import MealsGrid from "@/components/meals/mealsGrid";
 
 import { getMeals } from "@/lib/meals";
 
-export default function Meals() {
-  const meals = getMeals();
+export default async function Meals() {
+  const meals = await getMeals();
   return (
     <>
       <header className={styles.header}>

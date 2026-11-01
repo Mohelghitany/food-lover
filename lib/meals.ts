@@ -10,7 +10,8 @@ export interface Meal {
   summary: string;
 }
 
-export function getMeals(): Meal[] {
+export async function getMeals(): Promise<Meal[]> {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return db.prepare("SELECT * FROM meals").all() as Meal[];
 }
 
