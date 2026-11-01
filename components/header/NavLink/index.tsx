@@ -18,7 +18,7 @@ export default function NavLink({
         <li>
           <Link
             href={href}
-            className={`${styles.navLink} ${pathname === href ? styles.active : undefined}`}
+            className={`${styles.navLink} ${pathname.includes(href) ? styles.active : undefined}`}
           >
             {children}
           </Link>

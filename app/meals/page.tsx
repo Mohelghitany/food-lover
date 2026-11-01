@@ -1,20 +1,29 @@
 import Link from "next/link";
+import styles from "./index.module.css";
+import MealsGrid from "@/components/meals/mealsGrid";
+
+import { getMeals } from "@/lib/meals";
 
 export default function Meals() {
+  const meals = getMeals();
   return (
     <>
-      <div>
-        <Link href={"/community"}>Community</Link>
-      </div>
-      <div>
-        Meals
+      <header className={styles.header}>
+        <h1>
+          Delicious Meals, Created{" "}
+          <span className={styles.highlight}>by You</span>
+        </h1>
         <p>
-          <Link href={"/meals/share"}>Share</Link>
+          Choose your favorite recipe and cook it yourself. It&apos;s easy and
+          fun.
         </p>
-        <p>
-          <Link href={"/meals/87292932"}>Details</Link>
+        <p className={styles.cta}>
+          <Link href="/meals/share">Share your recipe</Link>
         </p>
-      </div>
+      </header>
+      <main className={styles.main}>
+        <MealsGrid meals={meals} />
+      </main>
     </>
   );
 }
