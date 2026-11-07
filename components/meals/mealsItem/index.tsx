@@ -3,11 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 export interface Meal {
-  id: string;
+  id: number;
   title: string;
   image: string;
-  creator: string;
+  slug: string;
+  creator?: string;
+  creator_email?: string;
   summary: string;
+  instructions: string;
 }
 
 export default function MealsItem({
