@@ -7,13 +7,6 @@ import { useActionState } from "react";
 import { shareMeal } from "@/lib/actions";
 import { initialMealFormState } from "@/lib/Meal.type";
 
-export async function generateMetadata() {
-  return {
-    title: "Share a Meal",
-    description: "Share your favorite meal with the world!",
-  };
-}
-
 export default function ShareMealP() {
   const [state, formAction, isPending] = useActionState(
     shareMeal,
