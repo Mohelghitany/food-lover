@@ -3,6 +3,7 @@
 import { createMeal } from "./meals";
 import { redirect } from "next/navigation";
 import { MealFormState } from "./Meal.type";
+import { revalidatePath } from "next/cache";
 
 function readText(value: FormDataEntryValue | null) {
   if (typeof value !== "string") {
@@ -28,7 +29,11 @@ export async function shareMeal(
   if (!creator) {
     errors.name = "Please enter your name.";
   }
-  if (!creatorEmail || !creatorEmail.includes("@") || creatorEmail.length <= 3) {
+  if (
+    !creatorEmail ||
+    !creatorEmail.includes("@") ||
+    creatorEmail.length <= 3
+  ) {
     errors.email = "Please enter a valid email.";
   }
   if (!title) {
@@ -65,6 +70,8 @@ export async function shareMeal(
     creator,
     creator_email: creatorEmail,
   });
+
+  revalidatePath("/meals", "layout");
 
   redirect("/meals");
 }
