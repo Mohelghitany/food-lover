@@ -26,6 +26,7 @@ export type InputMeal = Omit<Meal, "image"> & {
 
 export type OutputMeal = Omit<Meal, "image"> & {
   image: string;
+  id?: number;
 };
 
 export async function getMeals(): Promise<OutputMeal[]> {
@@ -52,7 +53,9 @@ export function getMeal(slug: string): OutputMeal | undefined {
     | undefined;
 }
 
-export async function createMeal(meal: InputMeal): Promise<OutputMeal> {
+export async function createMeal(
+  meal: InputMeal,
+): Promise<OutputMeal & { id: number }> {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   db.prepare("DELETE FROM meals WHERE image = 'images/'").run();
 
@@ -77,16 +80,19 @@ export async function createMeal(meal: InputMeal): Promise<OutputMeal> {
     image: imagePath,
   };
 
-  db.prepare(
-    "INSERT INTO meals (title, slug, image, summary, instructions, creator, creator_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
-  ).run(
-    saved.title,
-    saved.slug,
-    saved.image,
-    saved.summary,
-    saved.instructions,
-    saved.creator,
-    saved.creator_email,
-  );
-  return saved;
+  const result = db
+    .prepare(
+      "INSERT INTO meals (title, slug, image, summary, instructions, creator, creator_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    )
+    .run(
+      saved.title,
+      saved.slug,
+      saved.image,
+      saved.summary,
+      saved.instructions,
+      saved.creator,
+      saved.creator_email,
+    );
+
+  return { ...saved, id: Number(result.lastInsertRowid) };
 }

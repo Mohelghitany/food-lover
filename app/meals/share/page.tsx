@@ -7,6 +7,13 @@ import { useActionState } from "react";
 import { shareMeal } from "@/lib/actions";
 import { initialMealFormState } from "@/lib/Meal.type";
 
+export async function generateMetadata() {
+  return {
+    title: "Share a Meal",
+    description: "Share your favorite meal with the world!",
+  };
+}
+
 export default function ShareMealP() {
   const [state, formAction, isPending] = useActionState(
     shareMeal,
@@ -55,7 +62,11 @@ export default function ShareMealP() {
           </p>
           <p>
             <label htmlFor="instructions">Instructions</label>
-            <textarea id="instructions" name="instructions" rows={10}></textarea>
+            <textarea
+              id="instructions"
+              name="instructions"
+              rows={10}
+            ></textarea>
             {state.errors.instructions ? (
               <span className={classes.error}>{state.errors.instructions}</span>
             ) : null}
@@ -64,7 +75,9 @@ export default function ShareMealP() {
           {state.errors.image ? (
             <span className={classes.error}>{state.errors.image}</span>
           ) : null}
-          {state.message ? <p className={classes.error}>{state.message}</p> : null}
+          {state.message ? (
+            <p className={classes.error}>{state.message}</p>
+          ) : null}
           <p className={classes.actions}>
             <MealsSubmission isPending={isPending} />
           </p>

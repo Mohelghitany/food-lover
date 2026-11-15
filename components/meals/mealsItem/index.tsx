@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export interface Meal {
-  id: number;
+  id?: number;
   title: string;
   image: string;
   slug: string;

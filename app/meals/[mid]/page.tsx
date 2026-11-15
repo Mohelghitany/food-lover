@@ -4,11 +4,23 @@ import Image from "next/image";
 import styles from "./index.module.css";
 import { notFound } from "next/navigation";
 
-type MealDetailsProps = {
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ mid: string }>;
-};
+}) {
+  const { mid } = await params;
+  const meal = await getMeal(mid);
+  if (!meal) {
+    notFound();
+  }
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
 
-export default function Page({ params }: MealDetailsProps) {
+export default function Page({ params }: { params: Promise<{ mid: string }> }) {
   return (
     <Suspense
       fallback={<p className={styles.loading}>Loading meal details...</p>}
@@ -18,7 +30,7 @@ export default function Page({ params }: MealDetailsProps) {
   );
 }
 
-async function MealDetails({ params }: MealDetailsProps) {
+async function MealDetails({ params }: { params: Promise<{ mid: string }> }) {
   const { mid } = await params;
 
   const meal = await getMeal(mid);
