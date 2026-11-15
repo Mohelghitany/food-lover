@@ -40,7 +40,6 @@ export default function ImagePicker({
           accept="image/jpeg, image/png"
           ref={fileInputRef}
           onChange={handleFileChange}
-          required
         />
         <button
           className={styles.button}

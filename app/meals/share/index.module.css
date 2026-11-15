@@ -67,6 +67,13 @@
   width: 100%;
 }
 
+.error {
+  display: block;
+  margin-top: 0.5rem;
+  color: #f9572a;
+  font-size: 0.9rem;
+}
+
 .actions {
   text-align: right;
 }
